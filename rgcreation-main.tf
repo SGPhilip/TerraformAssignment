@@ -4,6 +4,6 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "myterraformgroup" {
-    name = "RandstadtestRGcreation2020"
+    name = "Assignment1-2020"
     location = "West US"
 }   
