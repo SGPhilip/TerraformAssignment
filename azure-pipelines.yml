@@ -41,7 +41,6 @@ steps:
 
 
 
-steps:
 - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
   displayName: 'terraform init'
   inputs:
@@ -50,7 +49,6 @@ steps:
 
 
 
-steps:
 - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
   displayName: 'terraform apply'
   inputs:
