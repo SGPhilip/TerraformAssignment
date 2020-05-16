@@ -14,7 +14,7 @@ resource "random_string" "tf-name" {
 }
 # Create a Resource Group for the Terraform State File
 resource "azurerm_resource_group" "state-rg" {
-  name = "${lower(var.company)}-tfstate-rg"
+  name = "${lower(var.company)}-tfstate-rgTest1"
   location = var.location
   
   lifecycle {
