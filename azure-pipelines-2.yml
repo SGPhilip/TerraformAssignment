@@ -52,17 +52,4 @@ stages:
         downloadPath: '$(System.DefaultWorkingDirectory)'
 
     
-    - task: TerraformInstaller@0
-      inputs:
-        terraformVersion: 'latest'
     
-    - task: TerraformTaskV1@0
-      inputs:
-        provider: 'azurerm'
-        command: 'init'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/_complete CI CD pipeline testing/drop/aksCreation'
-        backendServiceArm: 'Visual Studio Ultimate with MSDN (9bb74e1d-fcb4-4f14-b8ef-f4fc2865a77a)'
-        backendAzureRmResourceGroupName: 'randstad-tfstate-rg'
-        backendAzureRmStorageAccountName: 'randstadtf9iydj9nc'
-        backendAzureRmContainerName: 'core-tfstate'
-        backendAzureRmKey: 'test.AKS.terraform.tfstate'
