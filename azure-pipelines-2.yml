@@ -51,10 +51,10 @@ stages:
         artifactName: 'drop'
         downloadPath: '$(System.DefaultWorkingDirectory)'
 
+    
     - task: TerraformInstaller@0
       inputs:
-        terraformVersion: '0.12.3'
-
+        terraformVersion: 'latest'
     
     - task: TerraformTaskV1@0
       inputs:
