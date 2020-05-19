@@ -51,5 +51,22 @@ stages:
         artifactName: 'drop'
         downloadPath: '$(System.DefaultWorkingDirectory)'
 
+    - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+      displayName: 'Use Terraform latest'
+
+
+    - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+      displayName: 'terraform init'
+      inputs:
+        command: init
+        workingDirectory: '$(System.DefaultWorkingDirectory)/_complete CI CD pipeline testing/drop/aksCreation'
+
+    - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+      displayName: 'terraform apply'
+      inputs:
+        command: apply
+        workingDirectory: '$(System.DefaultWorkingDirectory)/_complete CI CD pipeline testing/drop/aksCreation'
+        environmentServiceName: 'Visual Studio Ultimate with MSDN (9bb74e1d-fcb4-4f14-b8ef-f4fc2865a77a)'
+
     
     
