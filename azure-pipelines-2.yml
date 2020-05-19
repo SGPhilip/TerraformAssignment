@@ -60,9 +60,9 @@ stages:
       inputs:
         command: 'init'
 
+    
     - task: TerraformCLI@0
       inputs:
         command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/_complete CI CD pipeline testing/drop/aksCreation'
         environmentServiceName: 'Visual Studio Ultimate with MSDN (9bb74e1d-fcb4-4f14-b8ef-f4fc2865a77a)'
-
-    
