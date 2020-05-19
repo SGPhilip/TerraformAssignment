@@ -15,12 +15,12 @@ provider "azurerm" {
 
 
 resource "azurerm_resource_group" "example" {
-  name     = "nginxingress"
+  name     = "nginxingressviapipeline"
   location = "West Europe"
 }
 
 resource "azurerm_kubernetes_cluster" "example" {
-  name                = "nginxcluster"
+  name                = "nginxclusterviapipeline"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
   dns_prefix          = "nginxapp"
