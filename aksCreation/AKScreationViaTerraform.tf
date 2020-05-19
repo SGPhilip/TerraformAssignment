@@ -49,11 +49,6 @@ resource "azurerm_kubernetes_cluster" "example" {
           enabled = true
   }
 
-   addon_profile {
-    http_application_routing {
-      enabled = true
-    }
-  }      
   identity {
     type = "SystemAssigned"
   }
@@ -61,6 +56,7 @@ resource "azurerm_kubernetes_cluster" "example" {
   
   network_profile {
     network_plugin = "azure"
+    network_policy = "azure"
   }
 
   tags = {
