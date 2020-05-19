@@ -3,9 +3,13 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+
 trigger:
-- master
-paths:
+  batch: true
+  branches:
+    include:   
+    - master
+  paths:
     include:
     - /aksCreation/
 
