@@ -56,10 +56,11 @@ stages:
         terraformVersion: 'latest'
 
     
+    
     - task: TerraformCLI@0
       inputs:
         command: 'init'
-
+        workingDirectory: '$(System.DefaultWorkingDirectory)/_complete CI CD pipeline testing/drop/aksCreation'
     
     - task: TerraformCLI@0
       inputs:
