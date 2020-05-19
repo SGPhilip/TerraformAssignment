@@ -35,3 +35,34 @@ stages:
         ArtifactName: 'drop'
         publishLocation: 'Container'
 
+- stage: Deploy
+  jobs:
+  - job: Deploy
+    
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    steps:  
+
+    - task: DownloadBuildArtifacts@0
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'drop'
+        downloadPath: '$(System.ArtifactsDirectory)'
+
+    - task: TerraformInstaller@0
+      inputs:
+        terraformVersion: 'latest'
+
+    
+    - task: TerraformCLI@0
+      inputs:
+        command: 'init'
+
+    - task: TerraformCLI@0
+      inputs:
+        command: 'apply'
+        environmentServiceName: 'Visual Studio Ultimate with MSDN (9bb74e1d-fcb4-4f14-b8ef-f4fc2865a77a)'
+
+    
