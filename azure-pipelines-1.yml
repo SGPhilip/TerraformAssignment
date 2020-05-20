@@ -24,12 +24,60 @@ stages:
 
     steps:  
      
+
+    - task: KubectlInstaller@0
+      inputs:
+        kubectlVersion: 'latest'
+
+    - task: HelmInstaller@1
+      inputs:
+        helmVersionToInstall: 'latest'
+
     - task: CopyFiles@2
       inputs:
         SourceFolder: 
         Contents: '**'
         TargetFolder: '$(build.artifactstagingdirectory)'
+
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'Visual Studio Ultimate with MSDN (9bb74e1d-fcb4-4f14-b8ef-f4fc2865a77a)'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          export $sp
+          export $ns
+          az group create -n myResourceGroup -l westeurope
+          az aks create \
+              --resource-group myResourceGroup \
+              --name myAKSCluster \
+              --service-principal $(sp) \
+              --client-secret $(cs)
+          az aks get-credentials --name myAKSCluster --resource-group myResourceGroup
+          az aks enable-addons --resource-group myResourceGroup --name myAKSCluster --addons http_application_routing
+          variable="$(az aks show --resource-group myResourceGroup --name myAKSCluster --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName -o table)"
+          export $variable
     
+    - task: Kubernetes@1
+      inputs:
+        connectionType: 'Azure Resource Manager'
+        azureSubscriptionEndpoint: 'Visual Studio Ultimate with MSDN (9bb74e1d-fcb4-4f14-b8ef-f4fc2865a77a)'
+        azureResourceGroup: 'myResourceGroup'
+        kubernetesCluster: 'myAKSCluster'
+        namespace: 'Assignment'
+        command: 'create'
+        secretType: 'dockerRegistry'
+        containerRegistryType: 'Azure Container Registry'
+
+    - task: HelmDeploy@0
+      inputs:
+        connectionType: 'Azure Resource Manager'
+        command: 'init'
+        upgradeTiller: false
+        waitForExecution: false
+
+    
+
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
@@ -52,16 +100,4 @@ stages:
         artifactName: 'drop'
         downloadPath: '$(System.ArtifactsDirectory)'
 
-    - task: TerraformInstaller@0
-      inputs:
-        terraformVersion: 'latest'
-
     
-    - task: TerraformCLI@0
-      inputs:
-        command: 'init'
-
-    - task: TerraformCLI@0
-      inputs:
-        command: 'apply'
-        environmentServiceName: 'Visual Studio Ultimate with MSDN (9bb74e1d-fcb4-4f14-b8ef-f4fc2865a77a)'
