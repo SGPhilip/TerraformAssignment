@@ -16,12 +16,12 @@ provider "azurerm" {
 
 
 resource "azurerm_resource_group" "example" {
-  name     = "myAksTerraformResourcegroup"
+  name     = "myAksTerraformResourcegroup2021"
   location = "West Europe"
 }
 
 resource "azurerm_kubernetes_cluster" "example" {
-  name                = "myAksTerraformCluster"
+  name                = "myAksTerraformCluster2021"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
   dns_prefix          = "aksterraformcluster"
