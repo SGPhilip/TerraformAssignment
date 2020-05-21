@@ -58,13 +58,12 @@ stages:
         terraformVersion: '0.12.25' 
     
 
-    - task: TerraformTaskV1@0
+    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
+      displayName: 'Terraform : azurerm'
       inputs:
-        provider: 'azurerm'
-        command: 'init'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/_aksdeploynolinux'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/_aksdeploynolinux/drop/akscreatenolinux'
         backendServiceArm: 'Visual Studio Ultimate with MSDN (9bb74e1d-fcb4-4f14-b8ef-f4fc2865a77a)'
         backendAzureRmResourceGroupName: 'randstad-tfstate-rg'
-        backendAzureRmStorageAccountName: 'randstadtf9iydj9nc'
+        backendAzureRmStorageAccountName: randstadtf9iydj9nc
         backendAzureRmContainerName: 'core-tfstate'
-        backendAzureRmKey: 'aksdeploy.tfstate'
+        backendAzureRmKey: manualaksdeploy.tfstate
