@@ -1,0 +1,69 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+
+trigger:
+  batch: true
+  branches:
+    include:   
+    - master
+  paths:
+    include:
+    - /akscreatenolinux/
+
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    steps:  
+     
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: 
+        Contents: '**'
+        TargetFolder: '$(build.artifactstagingdirectory)'
+    
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+
+- stage: Deploy
+  jobs:
+  - job: Deploy
+    
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    steps:  
+
+    - task: DownloadBuildArtifacts@0
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'drop'
+        downloadPath: '$(System.DefaultWorkingDirectory)'
+
+    - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+      displayName: 'Use Terraform latest'
+
+
+    - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+      displayName: 'terraform init'
+      inputs:
+        command: init/aksCreation
+        workingDirectory: '$(System.DefaultWorkingDirectory)/_complete CI CD pipeline testing/drop/**'
+
+    - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+      displayName: 'terraform apply'
+      inputs:
+        command: apply
+        workingDirectory: '$(System.DefaultWorkingDirectory)/_complete CI CD pipeline testing/drop/**'
+        environmentServiceName: 'Visual Studio Ultimate with MSDN (9bb74e1d-fcb4-4f14-b8ef-f4fc2865a77a)'
