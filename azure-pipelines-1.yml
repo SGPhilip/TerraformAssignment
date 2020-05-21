@@ -101,6 +101,29 @@ stages:
         artifactName: 'drop'
         downloadPath: '$(System.ArtifactsDirectory)'
 
-    
+    - task: Kubernetes@1
+      inputs:
+        connectionType: 'Azure Resource Manager'
+        azureSubscriptionEndpoint: 'Visual Studio Ultimate with MSDN (9bb74e1d-fcb4-4f14-b8ef-f4fc2865a77a)'
+        azureResourceGroup: 'myResourceGroup'
+        kubernetesCluster: 'myAKSCluster'
+        namespace: 'Assignment'
+        command: 'apply'
+        arguments: 'aks-helloworld-one.yaml'
+        secretType: 'dockerRegistry'
+        containerRegistryType: 'Azure Container Registry'
+
+    - task: Kubernetes@1
+      inputs:
+        connectionType: 'Azure Resource Manager'
+        azureSubscriptionEndpoint: 'Visual Studio Ultimate with MSDN (9bb74e1d-fcb4-4f14-b8ef-f4fc2865a77a)'
+        azureResourceGroup: 'myResourceGroup'
+        kubernetesCluster: 'myAKSCluster'
+        namespace: 'Assignment'
+        command: 'apply'
+        arguments: 'aks-helloworld-two.yaml'
+        secretType: 'dockerRegistry'
+        containerRegistryType: 'Azure Container Registry'
+
 
     
