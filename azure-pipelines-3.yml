@@ -57,12 +57,6 @@ stages:
       inputs:
         terraformVersion: '0.12.25' 
     
-    
-
-    - task: TerraformTaskV1@0
-      inputs:
-        provider: 'azurerm'
-
 
     - task: TerraformTaskV1@0
       inputs:
