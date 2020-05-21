@@ -13,7 +13,11 @@ trigger:
   paths:
     include:
     - /nginxingress/
-
+    
+ variables:
+   client secret: $(cs)
+   service principal: $(sp)
+ - 
 stages:
 - stage: Build
   jobs:
