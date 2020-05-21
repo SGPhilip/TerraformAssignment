@@ -6,7 +6,7 @@ terraform {
     resource_group_name  = "randstad-tfstate-rg"
     storage_account_name = "randstadtf9iydj9nc"
     container_name       = "core-tfstate"
-    key                  = "test.AKS.terraform.tfstate"
+    key                  = "aksdeploy.tfstate"
   }
 }
 
