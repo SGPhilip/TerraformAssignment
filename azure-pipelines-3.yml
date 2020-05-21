@@ -43,7 +43,9 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:  
+    
 
+    - checkout: self
     - task: DownloadBuildArtifacts@0
       inputs:
         buildType: 'current'
