@@ -68,3 +68,10 @@ stages:
         backendAzureRmStorageAccountName: 'randstadtf9iydj9nc'
         backendAzureRmContainerName: 'core-tfstate'
         backendAzureRmKey: 'aksdeploy.tfstate'
+
+    - task: TerraformTaskV1@0
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+        environmentServiceNameAzureRM: 'Visual Studio Ultimate with MSDN (9bb74e1d-fcb4-4f14-b8ef-f4fc2865a77a)'
