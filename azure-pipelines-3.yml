@@ -55,18 +55,11 @@ stages:
       inputs:
         terraformVersion: '0.12.3' 
 
-    
-    - task: TerraformTaskV1@0
-      inputs:
-        provider: 'azurerm'
-        command: 'init'  
-
-    
     - task: TerraformTaskV1@0
       inputs:
         provider: 'azurerm'
         command: 'init'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/_aksdeploynolinux/drop/akscreatenolinux/**'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
         backendServiceArm: 'Visual Studio Ultimate with MSDN (9bb74e1d-fcb4-4f14-b8ef-f4fc2865a77a)'
         backendAzureRmResourceGroupName: 'randstad-tfstate-rg'
         backendAzureRmStorageAccountName: 'randstadtf9iydj9nc'
