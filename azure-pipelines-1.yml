@@ -55,9 +55,7 @@ stages:
               --client-secret $(cs)
           az aks get-credentials --name myAKSCluster --resource-group myResourceGroup
           az aks enable-addons --resource-group myResourceGroup --name myAKSCluster --addons http_application_routing
-          variable="$(az aks show --resource-group myResourceGroup --name myAKSCluster --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName -o table)"
-          export $variable
-          envsubst < hello-world-ingress.yaml | kubectl apply -f -
+          
     
     - task: Kubernetes@1
       inputs:
@@ -76,8 +74,6 @@ stages:
         command: 'init'
         upgradeTiller: false
         waitForExecution: false
-
-    
 
     - task: PublishBuildArtifacts@1
       inputs:
@@ -124,6 +120,15 @@ stages:
         arguments: 'aks-helloworld-two.yaml'
         secretType: 'dockerRegistry'
         containerRegistryType: 'Azure Container Registry'
+
+
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+          variable="$(az aks show --resource-group myResourceGroup --name myAKSCluster --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName -o table)"
+          export $variable
+          envsubst < hello-world-ingress.yaml | kubectl apply -f -
 
 
     
