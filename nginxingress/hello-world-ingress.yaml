@@ -10,7 +10,7 @@ metadata:
     kubernetes.io/ingress.class: addon-http-application-routing
 spec:
   rules:
-  -host: hello-world-ingress.86ff6e054c524a1687fc.westeurope.aksapp.io
+  -host: hello-world-ingress.$variable
    http:
       paths:
       - backend:
