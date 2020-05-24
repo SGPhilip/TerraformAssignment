@@ -67,7 +67,9 @@ stages:
         backendAzureRmResourceGroupName: 'randstad-tfstate-rg'
         backendAzureRmStorageAccountName: 'randstadtf9iydj9nc'
         backendAzureRmContainerName: 'core-tfstate'
-        backendAzureRmKey: 'aksdeploy.tfstate'
+        backendAzureRmKey: 'storage.tfstate'
+
+    
 
     - task: TerraformTaskV1@0
       inputs:
