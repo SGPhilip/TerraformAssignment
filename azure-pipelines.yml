@@ -62,7 +62,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'init'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/terraformbackendcreate'
         backendServiceArm: 'Visual Studio Ultimate with MSDN (9bb74e1d-fcb4-4f14-b8ef-f4fc2865a77a)'
         backendAzureRmResourceGroupName: 'randstad-tfstate-rg'
         backendAzureRmStorageAccountName: 'randstadtf9iydj9nc'
