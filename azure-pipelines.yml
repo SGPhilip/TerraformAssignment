@@ -19,7 +19,7 @@ stages:
   - job: Build
     
     pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: 'vs2017-win2016'
 
     steps:  
      
@@ -40,7 +40,7 @@ stages:
   - job: Deploy
     
     pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: 'vs2017-win2016'
 
     steps:  
     
@@ -68,6 +68,8 @@ stages:
         backendAzureRmStorageAccountName: 'randstadtf9iydj9nc'
         backendAzureRmContainerName: 'core-tfstate'
         backendAzureRmKey: 'storage.tfstate'
+
+    
 
     
 
