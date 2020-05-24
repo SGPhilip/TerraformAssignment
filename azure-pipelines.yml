@@ -11,7 +11,7 @@ trigger:
     - master
   paths:
     include:
-    - /createRemoteBackend/
+    - /terraform/terraformbackendcreate
 
 stages:
 - stage: Build
@@ -43,27 +43,36 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:  
+    
+    - checkout: self
 
     - task: DownloadBuildArtifacts@0
       inputs:
         buildType: 'current'
         downloadType: 'single'
         artifactName: 'drop'
-        downloadPath: '$(System.ArtifactsDirectory)'
+        downloadPath: '$(System.DefaultWorkingDirectory)'
 
     - task: TerraformInstaller@0
       inputs:
-        terraformVersion: 'latest'
-
+        terraformVersion: '0.12.25' 
     
-    - task: TerraformCLI@0
+
+    - task: TerraformTaskV1@0
       inputs:
+        provider: 'azurerm'
         command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+        backendServiceArm: 'Visual Studio Ultimate with MSDN (9bb74e1d-fcb4-4f14-b8ef-f4fc2865a77a)'
+        backendAzureRmResourceGroupName: 'randstad-tfstate-rg'
+        backendAzureRmStorageAccountName: 'randstadtf9iydj9nc'
+        backendAzureRmContainerName: 'core-tfstate'
+        backendAzureRmKey: 'aksdeploy.tfstate'
 
-    - task: TerraformCLI@0
+    - task: TerraformTaskV1@0
       inputs:
+        provider: 'azurerm'
         command: 'apply'
-        environmentServiceName: 'Visual Studio Ultimate with MSDN (9bb74e1d-fcb4-4f14-b8ef-f4fc2865a77a)'
-
-
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+        environmentServiceNameAzureRM: 'Visual Studio Ultimate with MSDN (9bb74e1d-fcb4-4f14-b8ef-f4fc2865a77a)'
 
