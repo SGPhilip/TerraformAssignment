@@ -1,7 +1,7 @@
 variable "company" {
   type = string
   description = "This variable defines the name of the company"
-  default = "Randstad"
+  default = "Fabrikam"
 }
 # environment
 variable "environment" {
